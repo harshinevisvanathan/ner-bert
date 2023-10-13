@@ -28,6 +28,7 @@ from torch import nn
 
 from transformers import (
     AutoConfig,
+    BertConfig,
     AutoModelForTokenClassification,
     AutoTokenizer,
     EvalPrediction,
@@ -102,6 +103,10 @@ def main():
     else:
         model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 
+    print("model args:", model_args)
+    print("data args:", data_args)
+    print("training args:", training_args)
+
     if (
         os.path.exists(training_args.output_dir)
         and os.listdir(training_args.output_dir)
@@ -147,18 +152,18 @@ def main():
         num_labels=num_labels,
         id2label=label_map,
         label2id={label: i for i, label in enumerate(labels)},
-        cache_dir=model_args.cache_dir,
+        cache_dir=model_args.cache_dir
     )
     tokenizer = AutoTokenizer.from_pretrained(
         model_args.tokenizer_name if model_args.tokenizer_name else model_args.model_name_or_path,
         cache_dir=model_args.cache_dir,
-        use_fast=model_args.use_fast,
+        use_fast=model_args.use_fast
     )
     model = AutoModelForTokenClassification.from_pretrained(
         model_args.model_name_or_path,
         from_tf=bool(".ckpt" in model_args.model_name_or_path),
         config=config,
-        cache_dir=model_args.cache_dir,
+        cache_dir=model_args.cache_dir
     )
 
     # Get datasets

@@ -1,5 +1,8 @@
+#!/usr/bin/env bash
+
 export MAX_LENGTH=128
-export BERT_MODEL=bert-base-multilingual-cased
+#export BERT_MODEL=bert-base-multilingual-cased
+export BERT_MODEL=dbmdz/bert-large-cased-finetuned-conll03-english
 export OUTPUT_DIR=wnut_bert_model
 export BATCH_SIZE=32
 export NUM_EPOCHS=20
